@@ -2,7 +2,7 @@
 
 # mflisar (to use local snapshots use "LOCAL-SNAPSHOT" as version)
 kmp-parcelize =             "1.0.1"
-kmp-library =               "4.1.0"
+kmp-library =               "5.0.1"
 kmp-democomposables =       "1.0.2"
 cachefileprovider =         "1.0.0"
 
