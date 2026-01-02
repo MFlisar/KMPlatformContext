@@ -94,9 +94,6 @@ Manually initialize the library inside your `Application` class like following:
 ```kt
 PlatformContextProvider.init(this)
 ```
-```txt
-PlatformContextProvider.init(this)
-```
 <!-- endSnippet -->
 
 Afterwards you have access to the `PlatformContext`, `PlatformContextProvider.get()` and `PlatformIOContext()` everywhere in your code like following:
