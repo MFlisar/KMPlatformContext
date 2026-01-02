@@ -13,8 +13,14 @@ PlatformContextProvider.init(this)
 And now add it to markdown like following:
 
 ```html
-<-- snippet: PlatformContextProvider::init -->
+
+snippet: NAME
+
+// or
+
+<-- snippet: NAME -->
 <-- endSnippet -->
+
 ```
 
 ##############################
