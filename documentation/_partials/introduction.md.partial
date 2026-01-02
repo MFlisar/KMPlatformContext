@@ -1,1 +1,1 @@
-This library provides a multiplatform abstraction for platform-specific context handling and IO dispatching.
+This library provides `parcelize` annotations that can be used inside `commonMain` source sets.

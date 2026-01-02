@@ -46,8 +46,6 @@ val libraryId = "kmpplatformcontext"
 
 // Modules
 includeModule("library", ":$libraryId")
-includeModule("library/core", ":$libraryId:core")
-includeModule("library/initializer", ":$libraryId:initializer")
 
 // Modules
 // --
@@ -55,9 +53,6 @@ includeModule("library/initializer", ":$libraryId:initializer")
 // --------------
 // App
 // --------------
-
-include(":demo:shared")
-include(":demo:app")
 
 // developer tools (for local tasks only)
 include(":tooling")

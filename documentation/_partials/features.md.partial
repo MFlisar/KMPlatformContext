@@ -1,8 +1,7 @@
-This library provides the following 3 things:
+Following is provided inside the `com.michaelflisar.parcelize` package:
 
-- a `PlatformContext` class that maps to `android.content.Context` on Android and to an empty implementation on all other platforms
-- a `PlatformContextProvider` that allows you to set and get the current `PlatformContext` instance
-- a `PlatformIOContext()` function that will provide `Dispatchers.IO` on all platforms but WASM where it provides `Dispatchers.Default`
+<-- snippet: Parcelize -->
+<-- endSnippet -->
 
-Additionally the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
+
 
