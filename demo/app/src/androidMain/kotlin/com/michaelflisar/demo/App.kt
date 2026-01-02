@@ -14,7 +14,7 @@ class App : Application() {
     }
 
     private fun init() {
-        // begin-snippet: PlatformContextProvider init
+        // begin-snippet: PlatformContextProvider::init
         PlatformContextProvider.init(this)
         // end-snippet
     }
