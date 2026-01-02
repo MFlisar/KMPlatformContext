@@ -1,0 +1,26 @@
+##############################
+# Add snipptes
+##############################
+
+White spaces inside snippet markers are not supported!
+
+```kotlin
+// begin-snippet: PlatformContextProvider::init
+PlatformContextProvider.init(this)
+// end-snippet
+```
+
+And now add it to markdown like following:
+
+```html
+<-- snippet: PlatformContextProvider::init -->
+<-- endSnippet -->
+```
+
+##############################
+# Custom docs
+##############################
+
+- inside the `documentation` folder you can add screenshots to the `screenshots` folder and they will be listed in the readme automatically
+- inside the `documentation` folder you can add modules readmes to the `modules` folder and they will be listed in the readme in the modules section automatically
+- all other files will be listed under the more section
