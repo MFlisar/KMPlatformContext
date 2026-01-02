@@ -1,0 +1,18 @@
+public abstract class com/michaelflisar/kmp/platformcontext/PlatformContextEmpty {
+	public fun <init> ()V
+}
+
+public final class com/michaelflisar/kmp/platformcontext/PlatformContextEmptyImpl : com/michaelflisar/kmp/platformcontext/PlatformContextEmpty {
+	public static final field INSTANCE Lcom/michaelflisar/kmp/platformcontext/PlatformContextEmptyImpl;
+}
+
+public final class com/michaelflisar/kmp/platformcontext/PlatformContextProvider {
+	public static final field INSTANCE Lcom/michaelflisar/kmp/platformcontext/PlatformContextProvider;
+	public final fun get ()Lcom/michaelflisar/kmp/platformcontext/PlatformContextEmpty;
+	public final fun init (Lcom/michaelflisar/kmp/platformcontext/PlatformContextEmpty;)V
+}
+
+public final class com/michaelflisar/kmp/platformcontext/PlatformIOContext_notWasmKt {
+	public static final fun PlatformIOContext ()Lkotlinx/coroutines/CoroutineDispatcher;
+}
+

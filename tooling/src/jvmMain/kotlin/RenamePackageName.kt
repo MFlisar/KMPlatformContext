@@ -1,6 +1,7 @@
 import com.michaelflisar.kmplibrary.core.configs.Config
 import com.michaelflisar.kmplibrary.core.configs.LibraryConfig
-import com.michaelflisar.kmplibrary.core.utils.PackageRenamer
+import com.michaelflisar.kmplibrary.core.utils.ProjectData
+import com.michaelflisar.kmplibrary.core.utils.ProjectRenamer
 import com.michaelflisar.kmplibrary.core.utils.ScriptStep
 import com.michaelflisar.kmplibrary.core.utils.ScriptUtil
 import java.io.File
@@ -12,52 +13,48 @@ fun main() {
     val config = Config.readFromProject(rootDir)
     val libraryConfig = LibraryConfig.readFromProject(rootDir)
 
-    val fileStateProperties = File(rootDir, "configs/state.properties")
-
-    val state = Properties().apply {
-        fileStateProperties.inputStream().use { load(it) }
-    }
-
-    val packageNameFrom = state.getProperty("packageNameFrom")!!
-    val libraryNameFrom = state.getProperty("libraryNameFrom")!!
-
-    val packageNameTo = libraryConfig.library.namespace
-    val libraryNameTo = libraryConfig.library.name
-
-    val details = mapOf(
-        "Project Root" to rootDir.absolutePath,
-        "Package Name From" to packageNameFrom,
-        "Package Name To" to packageNameTo,
-        "Library Name From" to libraryNameFrom,
-        "Library Name To" to libraryNameTo
+    val data = ProjectData(
+        packageNameTo = libraryConfig.library.namespace,
+        libraryNameTo = libraryConfig.library.name,
+        pathStateFile = "configs/state.properties",
+        pathRunConfigFolders = ".run",
+        root = rootDir
     )
 
     val steps = listOf(
         ScriptStep("Rename Package Names") {
-            PackageRenamer.rename(
-                root = rootDir,
-                packageNameFrom = packageNameFrom,
-                packageNameTo = packageNameTo,
-                libraryNameFrom = libraryNameFrom,
-                libraryNameTo = libraryNameTo,
+
+            // 1) rename folders
+            ProjectRenamer.renameFolder(data = data)
+
+            // 2) rename project content
+            ProjectRenamer.renameProject(
+                data = data,
+                renameImports = true,
+                renamePackageNames = true,
+                renameModuleReferences = false,
             )
+
+            // 3) update run configurations
+            ProjectRenamer.updateRunConfigurations(data = data)
+
         },
         ScriptStep("Update iOS App") {
 
-            val fileConfig = File(rootDir, "demo/iosApp/Configuration/Config.xcconfig")
-            val content = fileConfig.readText()
-            val newContent = content.replace(libraryNameFrom, libraryNameTo)
-            fileConfig.writeText(newContent)
+            val folderIOSApp = File(rootDir, "demo/iosApp")
+            if (folderIOSApp.exists()) {
 
-            val fileProject = File(rootDir, "demo/iosApp/iosApp.xcodeproj/project.pbxproj")
-            val projectContent = fileProject.readText()
-            val newProjectContent = projectContent.replace(libraryNameFrom, libraryNameTo)
-            fileProject.writeText(newProjectContent)
+                val fileConfig = File(folderIOSApp, "Configuration/Config.xcconfig")
+                val fileProject = File(folderIOSApp, "iosApp.xcodeproj/project.pbxproj")
+
+                data.updateFile(fileConfig, replacePackageName = true)
+                data.updateFile(fileProject, replacePackageName = true)
+
+            }
         },
         ScriptStep("Save State") {
-            state.setProperty("packageNameFrom", packageNameTo)
-            state.setProperty("libraryNameFrom", libraryNameTo)
-            fileStateProperties.outputStream().use { state.store(it, null) }
+            // writes the new package and library names to the state file
+            data.updateStateFile()
         }
     )
 
@@ -65,7 +62,7 @@ fun main() {
         name = "Rename Package Name",
         steps = steps,
         scriptInfos = {
-            ScriptUtil.printDetails(details)
+            ScriptUtil.printDetails(data.asStringMap())
         }
     )
 }

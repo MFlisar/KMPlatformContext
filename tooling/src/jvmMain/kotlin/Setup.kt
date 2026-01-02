@@ -1,5 +1,6 @@
 import com.michaelflisar.kmplibrary.core.configs.Config
 import com.michaelflisar.kmplibrary.core.configs.LibraryConfig
+import com.michaelflisar.kmplibrary.core.utils.SSHSetup
 import java.io.File
 
 class Setup(
@@ -40,6 +41,13 @@ class Setup(
         val macTargetDir = "/Users/mflisar/dev" // Base target dir on Mac
         val sshPort = 22
         val keyPath = System.getProperty("user.home") + "/.ssh/id_ed25519"
+
+        val sshSetup = SSHSetup(
+            host = macHost,
+            user = macUser,
+            port = sshPort,
+            keyPath = keyPath
+        )
 
         fun create(): Setup {
 

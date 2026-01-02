@@ -1,0 +1,10 @@
+public final class com/michaelflisar/kmp/platformcontext/PlatformContextProvider {
+	public static final field INSTANCE Lcom/michaelflisar/kmp/platformcontext/PlatformContextProvider;
+	public final fun get ()Landroid/content/Context;
+	public final fun init (Landroid/content/Context;)V
+}
+
+public final class com/michaelflisar/kmp/platformcontext/PlatformIOContext_notWasmKt {
+	public static final fun PlatformIOContext ()Lkotlinx/coroutines/CoroutineDispatcher;
+}
+

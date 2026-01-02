@@ -1,6 +1,7 @@
+import com.michaelflisar.kmplibrary.core.utils.CMDUtil
+import com.michaelflisar.kmplibrary.core.utils.SSHUtil
 import com.michaelflisar.kmplibrary.core.utils.ScriptStep
 import com.michaelflisar.kmplibrary.core.utils.ScriptUtil
-import utils.SSHUtil
 import java.io.File
 
 fun main() {
@@ -74,8 +75,11 @@ private fun syncToMac(setup: Setup) {
     println("1) Prepare Mac directory")
     val checkDirCmd =
         "[ -d '${setup.projectRemoteRootDirectory}' ] && rm -rf '${setup.projectRemoteRootDirectory}'"
-    SSHUtil.ssh("$checkDirCmd && mkdir -p '${setup.projectRemoteRootDirectory}' || mkdir -p '${setup.projectRemoteRootDirectory}'")
-    SSHUtil.ssh("mkdir -p '${setup.projectRemoteRootDirectory}'")
+    SSHUtil.ssh(
+        "$checkDirCmd && mkdir -p '${setup.projectRemoteRootDirectory}' || mkdir -p '${setup.projectRemoteRootDirectory}'",
+        Setup.sshSetup
+    )
+    SSHUtil.ssh("mkdir -p '${setup.projectRemoteRootDirectory}'", Setup.sshSetup)
 
     // 2) Create tar locally
     println("2) Create tar archive")
@@ -87,7 +91,7 @@ private fun syncToMac(setup: Setup) {
         "-C",
         setup.projectRootDirectory
     ) + tarExArgs + "."
-    Util.runOrThrow(tarCmd, "tar create failed.")
+    CMDUtil.runOrThrow(tarCmd, "tar create failed.")
 
     // 3) Copy tar to Mac
     println("3) Copy tar to Mac")
@@ -98,11 +102,14 @@ private fun syncToMac(setup: Setup) {
     if (File(Setup.keyPath).exists())
         scpCmd += listOf("-i", Setup.keyPath)
     scpCmd += listOf(tmpTar.absolutePath, "${Setup.macUser}@${Setup.macHost}:$remoteTar")
-    Util.runOrThrow(scpCmd, "scp upload failed.")
+    CMDUtil.runOrThrow(scpCmd, "scp upload failed.")
 
     // 4) Extract tar on Mac and remove tar
     println("4) Extract tar on Mac")
-    SSHUtil.ssh("tar -xpf '$remoteTar' -C '${setup.projectRemoteRootDirectory}' && rm -f '$remoteTar'")
+    SSHUtil.ssh(
+        "tar -xpf '$remoteTar' -C '${setup.projectRemoteRootDirectory}' && rm -f '$remoteTar'",
+        Setup.sshSetup
+    )
 
     // 5) Clean up local tar
     println("5) Delete local tar")
@@ -112,6 +119,7 @@ private fun syncToMac(setup: Setup) {
     println("6) Close XCode on Mac")
     SSHUtil.ssh(
         command = "killall Xcode >/dev/null 2>&1",
+        sshSetup = Setup.sshSetup,
         ignoreExitCode = { exitCode, output ->
             exitCode == 1 && (output.isBlank() || output.contains("no matching processes", true))
         }
@@ -121,7 +129,7 @@ private fun syncToMac(setup: Setup) {
     println("7) Set executable files on Mac")
     for (file in setup.macExecutables.all) {
         val remotePath = file.getRemotePath(setup)
-        SSHUtil.ssh("chmod +x '$remotePath'")
+        SSHUtil.ssh("chmod +x '$remotePath'", Setup.sshSetup)
     }
 
     println("8) Done.")
@@ -158,7 +166,7 @@ private fun buildXCFramework(setup: Setup) {
 
         val command1 =
             "cd '${setup.projectRemoteRootDirectory}' && chmod +x '$relativeScriptPath' && $env './$relativeScriptPath'"
-        SSHUtil.ssh(command1)
+        SSHUtil.ssh(command1, Setup.sshSetup)
 
         // 2) xcframework zurück kopieren
         println("Copying XCFramework back to local machine...")
@@ -188,13 +196,19 @@ private fun buildXCFramework(setup: Setup) {
 
 private fun openXCode(remoteXCodeProject: String) {
     println("Opening XCode...")
-    SSHUtil.ssh("open -a Xcode '$remoteXCodeProject' >/dev/null 2>&1 &")
+    SSHUtil.ssh(
+        command = "open -a Xcode '$remoteXCodeProject' >/dev/null 2>&1 &",
+        sshSetup = Setup.sshSetup
+    )
 }
 
 private fun openTerminalInScriptDir(setup: Setup) {
     println("Opening Terminal in script dir...")
     val remotePath = setup.relativePaths.scriptsFolder.getRemotePath(setup)
-    SSHUtil.ssh("open -a Terminal '$remotePath' >/dev/null 2>&1 &")
+    SSHUtil.ssh(
+        command = "open -a Terminal '$remotePath' >/dev/null 2>&1 &",
+        sshSetup = Setup.sshSetup
+    )
 }
 
 

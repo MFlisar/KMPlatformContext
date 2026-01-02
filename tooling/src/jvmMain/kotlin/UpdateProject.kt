@@ -1,6 +1,5 @@
 import com.michaelflisar.kmplibrary.core.utils.ScriptStep
 import com.michaelflisar.kmplibrary.core.utils.ScriptUtil
-import com.michaelflisar.kmplibrary.core.walkTopDownFiltered
 import java.io.File
 
 fun main() {
@@ -51,28 +50,32 @@ fun main() {
                             if (action.deleteTargetBeforeCopy) {
                                 toDir.deleteRecursively()
                             }
-                            fromDir.walkTopDownFiltered { file ->
-                                val relativePath = file.relativeTo(fromDir).path
-                                val targetFile = File(toDir, relativePath)
-                                !action.excludeFile(file, targetFile)
-                            }.forEach { file ->
-                                val relativePath = file.relativeTo(fromDir).path
-                                val targetFile = File(toDir, relativePath)
-                                if (file.isDirectory) {
-                                    if (!targetFile.exists()) {
-                                        targetFile.mkdirs()
+                            fromDir
+                                .walkTopDown()
+                                .filter { file ->
+                                    val relativePath = file.relativeTo(fromDir).path
+                                    val targetFile = File(toDir, relativePath)
+                                    !action.excludeFile(file, targetFile)
+                                }.forEach { file ->
+                                    val relativePath = file.relativeTo(fromDir).path
+                                    val targetFile = File(toDir, relativePath)
+                                    if (file.isDirectory) {
+                                        if (!targetFile.exists()) {
+                                            targetFile.mkdirs()
+                                        }
+                                    } else {
+                                        file.copyTo(targetFile, overwrite = true)
                                     }
-                                } else {
-                                    file.copyTo(targetFile, overwrite = true)
                                 }
-                            }
                             println("Copied folder: ${action.relativePath}")
                         } else {
                             println("Source folder does not exist: ${action.relativePath}")
                         }
                     }
+
                     is UpdateAction.DeleteRootFiles -> {
-                        val filesToDelete = projectPath.listFiles()?.filter { it.isFile } ?: emptyList()
+                        val filesToDelete =
+                            projectPath.listFiles()?.filter { it.isFile } ?: emptyList()
                         filesToDelete.forEach { file ->
                             if (file.exists()) {
                                 file.delete()
@@ -80,6 +83,7 @@ fun main() {
                         }
                         println("Deleted ${filesToDelete.size} root files")
                     }
+
                     is UpdateAction.CopyRootFiles -> {
                         val filesToCopy = root.listFiles()?.filter { it.isFile } ?: emptyList()
                         filesToCopy.forEach { file ->
