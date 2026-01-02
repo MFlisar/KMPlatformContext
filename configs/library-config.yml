@@ -1,0 +1,32 @@
+# Github Library
+github-library:
+  name: KMPPlatformContext
+  release: 2025
+  namespace: com.michaelflisar.kmp.platformcontext
+  license:
+    name: Apache License 2.0
+    path: blob/main/LICENSE
+
+# Maven
+maven:
+  group-id: io.github.mflisar.kmpplatformcontext
+  primary-artifact-id: library # used to detect latest release version of the library (dynamically on the published homepage)
+
+# Modules - list of modules [name, artifact-id, description, path, exclude-from-docs (optional)]
+modules:
+  - name: Core
+    artifact-id: core
+    description: This is the core module that holds the android app context
+    path: library/core
+  - name: Initializer
+    artifact-id: initializer
+    description: Uses androidx.startup to automatically initialize the android context on app start
+    path: library/initializer
+  - name: demo shared
+    artifact-id: ""
+    description: ""
+    path: demo/shared
+    exclude-from-docs: true
+
+# XCFrameworks [name, path, targets (ios, macos)]
+xcframeworks: []

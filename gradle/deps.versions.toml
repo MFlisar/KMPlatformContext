@@ -1,0 +1,44 @@
+[versions]
+
+# mflisar (to use local snapshots use "LOCAL-SNAPSHOT" as version)
+kmp-parcelize =             "1.0.1"
+kmp-library =               "4.0.0"
+kmp-democomposables =       "1.0.2"
+cachefileprovider =         "1.0.0"
+
+# kotlinx
+kotlinx-coroutines = 	     "1.10.2"
+kotlinx-json = 			     "1.9.0"
+kotlinx-datetime =           "0.7.1"
+kotlinx-io-core =            "0.8.2"
+
+# compose
+# --
+
+# others
+# --
+
+[plugins]
+
+# mflisar
+kmplibrary-buildplugin =                { id = "io.github.mflisar.kmp-library.plugins-build-gradle",    version.ref = "kmp-library" }
+
+[libraries]
+
+# mflisar
+kmp-parcelize =                         { module = "io.github.mflisar.parcelize:library", 	            version.ref = "kmp-parcelize" }
+kmplibrary-core =                       { module = "io.github.mflisar.kmp-library:core",                version.ref = "kmp-library" }
+kmp-democomposables =                   { module = "io.github.mflisar.democomposables:library",         version.ref = "kmp-democomposables" }
+cachefileprovider =                     { module = "io.github.mflisar.cachefileprovider:library", 	    version.ref = "cachefileprovider" }
+
+# kotlinx
+kotlinx-coroutines-core =			    { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", 	version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json =	        { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", 	version.ref = "kotlinx-json" }
+kotlinx-datetime =	                    { module = "org.jetbrains.kotlinx:kotlinx-datetime", 	        version.ref = "kotlinx-datetime" }
+kotlinx-io-core =			            { module = "org.jetbrains.kotlinx:kotlinx-io-core", 		    version.ref = "kotlinx-io-core" }
+
+# compose
+# --
+
+# others
+# --

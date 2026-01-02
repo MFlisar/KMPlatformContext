@@ -1,0 +1,13 @@
+This library is used like following:
+
+- on android do following:
+
+  - add the `initializer` module to your dependencies
+  - or do following manually inside your `Application` class:
+
+    <!-- snippet: PlatformContextProvider -->
+    <!-- PlatformContextProvider -->
+
+- on all other platforms do nothing special
+
+Afterwards you have access to the `PlatformContextProvider.get()` and `PlatformIOContext()` everywhere in your code.
