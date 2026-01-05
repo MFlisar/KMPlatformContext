@@ -4,7 +4,7 @@
 
 This library provides a multiplatform abstraction for platform-specific context handling and IO dispatching.
 
-This library provides the following 3 things:
+It provides the following main features:
 
 - a `PlatformContext` class that maps to `android.content.Context` on Android and to an empty implementation on all other platforms
 - a `PlatformContextProvider` that allows you to set and get the current `PlatformContext` instance
@@ -18,8 +18,8 @@ Additionally the `initializer` module allows you to initialize the `PlatformCont
 - [Setup](#wrench-setup)
 - [Usage](#rocket-usage)
 - [Demo](#sparkles-demo)
-- [Other Libraries](#bulb-other-libraries)
 - [API Documentation](#books-api-documentation)
+- [Other Libraries](#bulb-other-libraries)
 
 # :computer: Supported Platforms
 
@@ -30,24 +30,7 @@ Additionally the `initializer` module allows you to initialize the `PlatformCont
 
 # :wrench: Setup
 
-<details>
-
-<summary>Dependencies</summary>
-
-<br>
-
-Simply add the dependencies inside your **build.gradle.kts** file.
-
-```kotlin
-val kmpplatformcontext = "<LATEST-VERSION>"
-
-implementation("io.github.mflisar.kmpplatformcontext:core:${kmpplatformcontext}")
-implementation("io.github.mflisar.kmpplatformcontext:initializer:${kmpplatformcontext}")
-```
-
-</details>
-
-<details>
+<details open>
 
 <summary>Version Catalogue</summary>
 
@@ -68,9 +51,26 @@ initializer = { module = "io.github.mflisar.kmpplatformcontext:initializer", ver
 
 And then use the definitions in your projects **build.gradle.kts** file like following:
 
-```shell
+```java
 implementation(libs.core)
 implementation(libs.initializer)
+```
+
+</details>
+
+<details>
+
+<summary>Dependencies</summary>
+
+<br>
+
+Simply add the dependencies inside your **build.gradle.kts** file.
+
+```kotlin
+val kmpplatformcontext = "<LATEST-VERSION>"
+
+implementation("io.github.mflisar.kmpplatformcontext:core:${kmpplatformcontext}")
+implementation("io.github.mflisar.kmpplatformcontext:initializer:${kmpplatformcontext}")
 ```
 
 </details>
@@ -130,4 +130,4 @@ Check out the [API documentation](https://MFlisar.github.io/KMPPlatformContext/)
 
 # :bulb: Other Libraries
 
-You can find more libraries (all multiplatform) of mine that all do work together nicely [here](https://github.com/MFlisar/MyLibraries).
+You can find more libraries (all multiplatform) of mine that all do work together nicely [here](https://mflisar.github.io/Libraries/).
