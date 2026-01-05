@@ -10,14 +10,19 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.gradle.maven.publish.plugin) apply false
     alias(libs.plugins.buildkonfig) apply false
-    alias(deps.plugins.kmpdevtools.buildplugin) apply false
+    alias(deps.plugins.kmpdevtools.buildplugin)
 }
 
-// exclude all demo projects from CI builds
-subprojects {
-    if (project.path.contains(":demo:", ignoreCase = true) && System.getenv("CI") == "true") {
-        tasks.configureEach {
-            enabled = false
-        }
-    }
+// ----------------------------
+// Apply custom build file plugin
+// ----------------------------
+
+// provided gradle tasks in root project:
+// * updateMarkdownFiles
+// * macActions
+// * renameProject
+buildFilePlugin {
+
+    // do not build demo projects in CI
+    excludeDemoFromCI.set(true)
 }

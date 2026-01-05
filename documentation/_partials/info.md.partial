@@ -1,4 +1,6 @@
-This library provides the following 3 things:
+This library provides a multiplatform abstraction for platform-specific context handling and IO dispatching.
+
+It provides the following main features:
 
 - a `PlatformContext` class that maps to `android.content.Context` on Android and to an empty implementation on all other platforms
 - a `PlatformContextProvider` that allows you to set and get the current `PlatformContext` instance
