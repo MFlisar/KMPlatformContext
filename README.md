@@ -1,6 +1,6 @@
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.mflisar.kmpplatformcontext/core?style=for-the-badge&color=blue)](https://central.sonatype.com/artifact/io.github.mflisar.kmpplatformcontext/core) ![API](https://img.shields.io/badge/api-23%2B-brightgreen.svg?style=for-the-badge) ![Kotlin](https://img.shields.io/github/languages/top/MFlisar/KMPPlatformContext.svg?style=for-the-badge&amp;color=blueviolet) ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin_Multiplatform-blue?style=for-the-badge&amp;label=Kotlin) [![License](https://img.shields.io/github/license/MFlisar/KMPPlatformContext?style=for-the-badge)](https://github.com/MFlisar/KMPPlatformContext/blob/main/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.mflisar.kmpplatformcontext/core?style=for-the-badge&color=blue)](https://central.sonatype.com/artifact/io.github.mflisar.kmpplatformcontext/core) ![API](https://img.shields.io/badge/api-23%2B-brightgreen.svg?style=for-the-badge) ![Kotlin](https://img.shields.io/github/languages/top/MFlisar/KMPPlatformContext.svg?style=for-the-badge&amp;color=blueviolet) ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin_Multiplatform-blue?style=for-the-badge&amp;label=Kotlin)
 # KMPPlatformContext
-![Android](https://img.shields.io/badge/android-3DDC84?style=for-the-badge) ![iOS](https://img.shields.io/badge/ios-A2AAAD?style=for-the-badge) ![Windows](https://img.shields.io/badge/windows-5382A1?style=for-the-badge) ![macOS](https://img.shields.io/badge/macos-B0B0B0?style=for-the-badge) ![WebAssembly](https://img.shields.io/badge/wasm-624DE7?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/PLATFORMS-black?style=for-the-badge) ![Android](https://img.shields.io/badge/android-3DDC84?style=for-the-badge) ![iOS](https://img.shields.io/badge/ios-A2AAAD?style=for-the-badge) ![Windows](https://img.shields.io/badge/windows-5382A1?style=for-the-badge) ![macOS](https://img.shields.io/badge/macos-B0B0B0?style=for-the-badge) ![WebAssembly](https://img.shields.io/badge/wasm-624DE7?style=for-the-badge)
 
 This library provides a multiplatform abstraction for platform-specific context handling and IO dispatching.
 
@@ -12,27 +12,27 @@ It provides the following main features:
 
 Additionally the `initializer` module allows you to initialize the `PlatformContext` on Android with the application context automatically via `androidx.startup.Initializer`.
 
-# :information_source: Table of Contents
+# Table of Contents
 
 - [Supported Platforms](#computer-supported-platforms)
 - [Setup](#wrench-setup)
 - [Usage](#rocket-usage)
 - [Demo](#sparkles-demo)
-- [API Documentation](#books-api-documentation)
+- [API](#books-api)
 - [Other Libraries](#bulb-other-libraries)
 
 # :computer: Supported Platforms
 
 | Module | android | iOS | windows | macOS | wasm |
 |---|---|---|---|---|---|
-| Core | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Initializer | ✅ | ❌ | ❌ | ❌ | ❌ |
+| core | ✅ | ✅ | ✅ | ✅ | ✅ |
+| initializer | ✅ | ❌ | ❌ | ❌ | ❌ |
 
 # :wrench: Setup
 
 <details open>
 
-<summary>Version Catalogue</summary>
+<summary><b>Using Version Catalogs</b></summary>
 
 <br>
 
@@ -60,7 +60,7 @@ implementation(libs.initializer)
 
 <details>
 
-<summary>Dependencies</summary>
+<summary><b>Direct Dependency Notation</b></summary>
 
 <br>
 
@@ -124,7 +124,7 @@ actual fun doSomething() {
 
 A full [demo](/demo) is included inside the demo module, it shows nearly every usage with working examples.
 
-# :books: API Documentation
+# :books: API
 
 Check out the [API documentation](https://MFlisar.github.io/KMPPlatformContext/).
 
