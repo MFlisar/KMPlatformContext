@@ -103,7 +103,7 @@ kotlin {
         // ---------------------
 
         commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.jetbrains.kotlinx.coroutines.core)
         }
 
         androidMain.dependencies {
